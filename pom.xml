@@ -1,49 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>it.tramways</groupId>
-	<artifactId>ui</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Tramways UI</name>
-	<description>Demo project for Spring Boot</description>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>ui</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+      <plugin>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <configuration>
+              <nodeVersion>${node.version}</nodeVersion>
+              <yarnVersion>${yarn.version}</yarnVersion>
+            </configuration>
+            <goals>
+              <goal>install-node-and-yarn</goal>
+            </goals>
+            <id>install node</id>
+          </execution>
+          <execution>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <id>yarn install</id>
+            <phase>generate-resources</phase>
+          </execution>
+          <execution>
+            <configuration>
+              <arguments>build</arguments>
+            </configuration>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <id>yarn build</id>
+            <phase>compile</phase>
+          </execution>
+        </executions>
+        <groupId>com.github.eirslett</groupId>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>junit-vintage-engine</artifactId>
+          <groupId>org.junit.vintage</groupId>
+        </exclusion>
+      </exclusions>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <description>Demo project for Spring Boot</description>
+  <groupId>it.tramways</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <name>ui</name>
 
-	<properties>
-		<java.version>11</java.version>
-	</properties>
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <relativePath/>
+    <version>2.3.3.RELEASE</version> <!-- lookup parent from repository -->
+  </parent>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+  <properties>
+    <java.version>11</java.version>
+    <node.version>v10.13.0</node.version>
+    <yarn.version>v1.12.1</yarn.version>
+  </properties>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+  <version>0.0.1-SNAPSHOT</version>
 
 </project>

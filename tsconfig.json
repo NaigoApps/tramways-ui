@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+//    "strictNullChecks": true,
+    "lib": ["ESNext", "dom"],
+    "module": "CommonJS",
+    "target": "ES6",
+    "jsx": "react"
+  }
+}
