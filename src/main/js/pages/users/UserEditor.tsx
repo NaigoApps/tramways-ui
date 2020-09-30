@@ -92,6 +92,9 @@ export default function UserEditor({user, onClose, onConfirm}: UserEditorProps) 
             </div>
         </DialogContent>
         <DialogActions>
+            <Button variant="text" color="primary" onClick={onClose}>
+                Close
+            </Button>
             <Button variant="contained" color="primary" onClick={updateUser}>
                 Confirm
             </Button>

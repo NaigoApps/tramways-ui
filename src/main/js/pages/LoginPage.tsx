@@ -23,9 +23,11 @@ export default function LoginPage({navigate}: RouteComponentProps) {
         defaultApi.login({
             username, password
         }).then(response => {
-            updateToken(response.headers.authorization.substring(6));
-            navigate("/profile");
-        }).catch(err => notifyError(err.response.data));
+            updateToken(response.data.value);
+            navigate("/tramways/profile");
+        }).catch(err => {
+            notifyError(err.response.data);
+        });
     }
 
     return (

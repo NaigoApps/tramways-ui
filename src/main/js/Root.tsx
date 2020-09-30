@@ -67,7 +67,7 @@ const Root = () => {
                         {appBarTitle}
                     </Typography>
                     {!user && (
-                        <Button color="inherit" onClick={() => navigate("/login")}>
+                        <Button color="inherit" onClick={() => navigate("/tramways/login")}>
                             Login
                         </Button>
                     )}
@@ -147,7 +147,7 @@ function navContent(loggedUser: User | null) {
             </ListItem>
         )}
         {loggedUser && loggedUser.roles.find(r => r === UserRole.ADMIN) && (
-            <ListItem button onClick={() => navigate("/users")}>
+            <ListItem button onClick={() => navigate("/tramways/users")}>
                 <ListItemIcon>
                     <GroupIcon/>
                 </ListItemIcon>

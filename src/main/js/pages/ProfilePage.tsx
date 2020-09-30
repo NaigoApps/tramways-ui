@@ -1,9 +1,8 @@
 import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
     Button,
-    ExpansionPanel,
-    ExpansionPanelDetails,
-    ExpansionPanelSummary,
-    FormControl,
     TextField,
     Typography
 } from "@material-ui/core";
@@ -36,12 +35,12 @@ export default function ProfilePage({navigate}: RouteComponentProps) {
     return (
         <Page title={user.username + " profile"}>
             <Typography variant={"h2"}>Your profile</Typography>
-            <ExpansionPanel>
-                <ExpansionPanelSummary
+            <Accordion>
+                <AccordionSummary
                     expandIcon={<ExpandMore/>}>
                     <Typography variant={"h6"}>Password change</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
+                </AccordionSummary>
+                <AccordionDetails>
                     <div className={"flex-column"}>
                         <div className={"spaced-top-10"}>
                             <TextField
@@ -78,8 +77,8 @@ export default function ProfilePage({navigate}: RouteComponentProps) {
                             </Button>
                         </div>
                     </div>
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+                </AccordionDetails>
+            </Accordion>
         </Page>
     );
 }

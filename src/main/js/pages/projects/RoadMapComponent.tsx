@@ -195,7 +195,7 @@ export default function RoadMapComponent({
                 <Button
                     variant="outlined"
                     color="primary"
-                    onClick={() => navigate("analysis")}>
+                    onClick={() => navigate("./analysis")}>
                     Analysis
                 </Button>
                 <Button
