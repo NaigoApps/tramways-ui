@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: Tramways Analysis API
+  description: Tramways Analysis API
+  version: 1.0.0
+paths:
+  {}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Property:
+      type: object
+      discriminator:
+        propertyName: propertyType
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        propertyType:
+          type: string
+        valid:
+          type: boolean
+      required: [propertyType]
+    IntegerProperty:
+      allOf:
+        - $ref: '#/components/schemas/Property'
+        - type: object
+          properties:
+            value:
+              type: integer
+    StringProperty:
+      allOf:
+        - $ref: '#/components/schemas/Property'
+        - type: object
+          properties:
+            value:
+              type: string
+    ChoiceProperty:
+      allOf:
+        - $ref: '#/components/schemas/Property'
+        - type: object
+          properties:
+            choices:
+              type: array
+              items:
+                $ref: '#/components/schemas/ChoiceElement'
+            value:
+              type: string
+    ChoiceElement:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+    DecimalProperty:
+      allOf:
+        - $ref: '#/components/schemas/Property'
+        - type: object
+          properties:
+            value:
+              type: number
+    DistributionProperty:
+      allOf:
+        - $ref: '#/components/schemas/Property'
+        - type: object
+          properties:
+            value:
+              $ref: '#/components/schemas/Distribution'
+    Distribution:
+      type: object
+      discriminator:
+        propertyName: distributionType
+        mapping:
+          UNIFORM: '#/components/schemas/UniformDistribution'
+          EXPONENTIAL: '#/components/schemas/ExponentialDistribution'
+      properties:
+        distributionType:
+          $ref: '#/components/schemas/DistributionType'
+      required: [distributionType]
+    DistributionType:
+      type: string
+      enum: [UNIFORM, EXPONENTIAL]
+    UniformDistribution:
+      allOf:
+        - $ref: '#/components/schemas/Distribution'
+        - type: object
+          properties:
+            left:
+              type: number
+            right:
+              type: number
+    ExponentialDistribution:
+      allOf:
+        - $ref: '#/components/schemas/Distribution'
+        - type: object
+          properties:
+            lambda:
+              type: number
+security:
+  - bearerAuth: []
