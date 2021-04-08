@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {OkCancelDialog} from "../../../../widgets/OkCancelDialog";
-import {Property} from "../../../../../../api/generated";
 import {newStringProperty} from "../properties-utils";
 import PropertyEditor from "./PropertyEditor";
+import {Property} from "../../../../api/generated/projects";
 
 export type PropertyEditorDialogProps = {
     suggestions?: Array<Property>;

@@ -18,7 +18,7 @@ const Page: FunctionComponent<PageProps> = ({title, children}) => {
 
     return (
         <Container className={classes.container}>
-            {children}
+            {React.Children.toArray(children)}
         </Container>
     );
 };

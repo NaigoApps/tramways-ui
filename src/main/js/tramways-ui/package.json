@@ -13,8 +13,11 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/js-cookie": "^2.2.6",
     "@types/jsoneditor": "^8.6.0",
+    "axios": "^0.21.1",
+    "cytoscape": "^3.18.1",
     "js-cookie": "^2.2.1",
     "jsoneditor": "^9.1.7",
+    "node-sass": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
@@ -22,7 +25,8 @@
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
+    "@openapitools/openapi-generator-cli": "^2.1.23",
+    "@types/cytoscape": "^3.14.12",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
     "@types/reach__router": "^1.3.6",
@@ -34,9 +38,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generate-users-api": "scripts/generate-users.sh",
-    "generate-analysis-api": "./node_modules/.bin/openapi-generator generate -i ../../resources/api/analysis-api.yaml -g typescript-axios -o src/api/generated/analysis",
-    "generate-projects-api": "./node_modules/.bin/openapi-generator generate -i ../../resources/api/projects-api.yaml -g typescript-axios -o src/api/generated/projects"
+    "generate-users-api": "openapi-generator-cli generate -i \"https://raw.githubusercontent.com/NaigoApps/tramways-users-service/master/users-service-rest/src/main/resources/api/users-api.yaml\"  -g typescript-axios -o ./src/api/generated/users",
+    "generate-projects-api": "openapi-generator-cli generate -i \"https://raw.githubusercontent.com/NaigoApps/tramways-projects-service/master/projects-service-api/src/main/resources/api/projects-api.yaml\"  -g typescript-axios -o ./src/api/generated/projects",
+    "generate-analysis-api": "./node_modules/.bin/openapi-generator generate -i ../../resources/api/analysis-api.yaml -g typescript-axios -o src/api/generated/analysis"
   },
   "eslintConfig": {
     "extends": [

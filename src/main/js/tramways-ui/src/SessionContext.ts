@@ -1,11 +1,11 @@
 import React from "react";
-import {User} from "../../api/generated";
+import {User} from "./api/generated/users";
 
-type SessionContext = {
+type SessionContextType = {
     user: User | null,
     refreshUser: () => void
 }
 
-const SessionContext = React.createContext({} as SessionContext);
+const SessionContext = React.createContext({} as SessionContextType);
 
 export default SessionContext;

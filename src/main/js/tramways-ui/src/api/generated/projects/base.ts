@@ -1,4 +1,5 @@
-// tslint:disable
+/* tslint:disable */
+/* eslint-disable */
 /**
  * Tramways Roadmaps API
  * Tramways Roadmaps API

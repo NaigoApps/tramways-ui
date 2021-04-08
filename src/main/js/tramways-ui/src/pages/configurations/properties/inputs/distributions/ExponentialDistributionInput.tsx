@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import {ExponentialDistribution} from "../../../../../../../api/generated";
 import useStyles from "../../../../../utils/useStyles";
+import {ExponentialDistribution} from "../../../../../api/generated/projects";
 
 export interface ExponentialDistributionPropertyInputProps {
     distribution: ExponentialDistribution;

@@ -1,4 +1,4 @@
-import {DecimalProperty, IntegerProperty, Property} from "../../../../../api/generated";
+import {DecimalProperty, IntegerProperty, Property} from "../../../api/generated/projects";
 
 export function integerProperty(props: Array<Property>, name: string): IntegerProperty {
     return props.find(p => p.name === name) as IntegerProperty;

@@ -1,6 +1,6 @@
 import React from "react";
-import {DecimalProperty} from "../../../../../../api/generated";
 import DecimalPropertyInput from "../inputs/DecimalPropertyInput";
+import {DecimalProperty} from "../../../../api/generated/projects";
 
 export interface DecimalPropertyEditorProps {
     property: DecimalProperty;

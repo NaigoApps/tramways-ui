@@ -1,4 +1,5 @@
-// tslint:disable
+/* tslint:disable */
+/* eslint-disable */
 /**
  * Tramways Roadmaps API
  * Tramways Roadmaps API
@@ -12,13 +13,71 @@
  */
 
 
-import * as globalImportUrl from 'url';
 import { Configuration } from './configuration';
 import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
+// @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
+/**
+ * 
+ * @export
+ * @interface ChoiceElement
+ */
+export interface ChoiceElement {
+    /**
+     * 
+     * @type {string}
+     * @memberof ChoiceElement
+     */
+    id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChoiceElement
+     */
+    label?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ChoiceProperty
+ */
+export interface ChoiceProperty extends Property {
+    /**
+     * 
+     * @type {Array<ChoiceElement>}
+     * @memberof ChoiceProperty
+     */
+    choices?: Array<ChoiceElement>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChoiceProperty
+     */
+    value?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ChoicePropertyAllOf
+ */
+export interface ChoicePropertyAllOf {
+    /**
+     * 
+     * @type {Array<ChoiceElement>}
+     * @memberof ChoicePropertyAllOf
+     */
+    choices?: Array<ChoiceElement>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChoicePropertyAllOf
+     */
+    value?: string;
+}
 /**
  * 
  * @export
@@ -45,10 +104,10 @@ export interface Configurable {
     configurableType?: string;
     /**
      * 
-     * @type {Array<PippoMYProperty>}
+     * @type {Array<Property>}
      * @memberof Configurable
      */
-    props?: Array<PippoMYProperty>;
+    props?: Array<Property>;
 }
 /**
  * 
@@ -62,6 +121,19 @@ export interface CreateMapRequest {
      * @memberof CreateMapRequest
      */
     map?: RoadMap;
+}
+/**
+ * 
+ * @export
+ * @interface CreateProjectRequest
+ */
+export interface CreateProjectRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateProjectRequest
+     */
+    name?: string;
 }
 /**
  * 
@@ -81,6 +153,164 @@ export interface CrossingLink extends Configurable {
      * @memberof CrossingLink
      */
     destinationId?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DecimalProperty
+ */
+export interface DecimalProperty extends Property {
+    /**
+     * 
+     * @type {number}
+     * @memberof DecimalProperty
+     */
+    value?: number;
+}
+/**
+ * 
+ * @export
+ * @interface DecimalPropertyAllOf
+ */
+export interface DecimalPropertyAllOf {
+    /**
+     * 
+     * @type {number}
+     * @memberof DecimalPropertyAllOf
+     */
+    value?: number;
+}
+/**
+ * 
+ * @export
+ * @interface Distribution
+ */
+export interface Distribution {
+    /**
+     * 
+     * @type {DistributionType}
+     * @memberof Distribution
+     */
+    distributionType: DistributionType;
+}
+/**
+ * 
+ * @export
+ * @interface DistributionProperty
+ */
+export interface DistributionProperty extends Property {
+    /**
+     * 
+     * @type {Distribution}
+     * @memberof DistributionProperty
+     */
+    value?: Distribution;
+}
+/**
+ * 
+ * @export
+ * @interface DistributionPropertyAllOf
+ */
+export interface DistributionPropertyAllOf {
+    /**
+     * 
+     * @type {Distribution}
+     * @memberof DistributionPropertyAllOf
+     */
+    value?: Distribution;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+export enum DistributionType {
+    Uniform = 'UNIFORM',
+    Exponential = 'EXPONENTIAL'
+}
+
+/**
+ * 
+ * @export
+ * @interface ExponentialDistribution
+ */
+export interface ExponentialDistribution extends Distribution {
+    /**
+     * 
+     * @type {number}
+     * @memberof ExponentialDistribution
+     */
+    lambda?: number;
+}
+/**
+ * 
+ * @export
+ * @interface ExponentialDistributionAllOf
+ */
+export interface ExponentialDistributionAllOf {
+    /**
+     * 
+     * @type {number}
+     * @memberof ExponentialDistributionAllOf
+     */
+    lambda?: number;
+}
+/**
+ * 
+ * @export
+ * @interface IntegerProperty
+ */
+export interface IntegerProperty extends Property {
+    /**
+     * 
+     * @type {number}
+     * @memberof IntegerProperty
+     */
+    value?: number;
+}
+/**
+ * 
+ * @export
+ * @interface IntegerPropertyAllOf
+ */
+export interface IntegerPropertyAllOf {
+    /**
+     * 
+     * @type {number}
+     * @memberof IntegerPropertyAllOf
+     */
+    value?: number;
+}
+/**
+ * 
+ * @export
+ * @interface ItemConfiguration
+ */
+export interface ItemConfiguration {
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemConfiguration
+     */
+    uuid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemConfiguration
+     */
+    category?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemConfiguration
+     */
+    name?: string;
+    /**
+     * 
+     * @type {Array<Property>}
+     * @memberof ItemConfiguration
+     */
+    props?: Array<Property>;
 }
 /**
  * 
@@ -119,6 +349,62 @@ export interface LaneAllOf {
      * @memberof LaneAllOf
      */
     destinationId?: string;
+}
+/**
+ * 
+ * @export
+ * @interface Project
+ */
+export interface Project {
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    uuid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    owner?: string;
+    /**
+     * 
+     * @type {Array<RoadMapDescription>}
+     * @memberof Project
+     */
+    roadMaps?: Array<RoadMapDescription>;
+}
+/**
+ * 
+ * @export
+ * @interface ProjectDescription
+ */
+export interface ProjectDescription {
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectDescription
+     */
+    uuid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectDescription
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectDescription
+     */
+    owner?: string;
 }
 /**
  * 
@@ -197,27 +483,20 @@ export interface RoadMap {
     name?: string;
     /**
      * 
-     * @type {RoadMapContent}
+     * @type {string}
      * @memberof RoadMap
      */
-    content?: RoadMapContent;
-}
-/**
- * 
- * @export
- * @interface RoadMapContent
- */
-export interface RoadMapContent {
+    projectId?: string;
     /**
      * 
      * @type {Array<RelevantPoint>}
-     * @memberof RoadMapContent
+     * @memberof RoadMap
      */
     points?: Array<RelevantPoint>;
     /**
      * 
      * @type {Array<Lane>}
-     * @memberof RoadMapContent
+     * @memberof RoadMap
      */
     lanes?: Array<Lane>;
 }
@@ -243,6 +522,70 @@ export interface RoadMapDescription {
 /**
  * 
  * @export
+ * @interface StringProperty
+ */
+export interface StringProperty extends Property {
+    /**
+     * 
+     * @type {string}
+     * @memberof StringProperty
+     */
+    value?: string;
+}
+/**
+ * 
+ * @export
+ * @interface StringPropertyAllOf
+ */
+export interface StringPropertyAllOf {
+    /**
+     * 
+     * @type {string}
+     * @memberof StringPropertyAllOf
+     */
+    value?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UniformDistribution
+ */
+export interface UniformDistribution extends Distribution {
+    /**
+     * 
+     * @type {number}
+     * @memberof UniformDistribution
+     */
+    left?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UniformDistribution
+     */
+    right?: number;
+}
+/**
+ * 
+ * @export
+ * @interface UniformDistributionAllOf
+ */
+export interface UniformDistributionAllOf {
+    /**
+     * 
+     * @type {number}
+     * @memberof UniformDistributionAllOf
+     */
+    left?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UniformDistributionAllOf
+     */
+    right?: number;
+}
+/**
+ * 
+ * @export
  * @interface UpdateMapRequest
  */
 export interface UpdateMapRequest {
@@ -252,6 +595,19 @@ export interface UpdateMapRequest {
      * @memberof UpdateMapRequest
      */
     map?: RoadMap;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateProjectRequest
+ */
+export interface UpdateProjectRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateProjectRequest
+     */
+    name?: string;
 }
 
 /**
@@ -268,45 +624,75 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createMap(projectId: string, createMapRequest?: CreateMapRequest, options: any = {}): RequestArgs {
+        createMap: async (projectId: string, createMapRequest?: CreateMapRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
-            if (projectId === null || projectId === undefined) {
-                throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling createMap.');
-            }
+            assertParamExists('createMap', 'projectId', projectId)
             const localVarPath = `/projects/{projectId}/maps`
                 .replace(`{${"projectId"}}`, encodeURIComponent(String(projectId)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
+
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             // authentication bearerAuth required
             // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken()
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof createMapRequest !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(createMapRequest !== undefined ? createMapRequest : {}) : (createMapRequest || "");
+            localVarRequestOptions.data = serializeDataIfNeeded(createMapRequest, localVarRequestOptions, configuration)
 
             return {
-                url: globalImportUrl.format(localVarUrlObj),
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Creates a new project
+         * @param {CreateProjectRequest} [createProjectRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createProject: async (createProjectRequest?: CreateProjectRequest, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/projects`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createProjectRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
             };
         },
@@ -318,46 +704,75 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteMap(projectId: string, mapId: string, options: any = {}): RequestArgs {
+        deleteMap: async (projectId: string, mapId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
-            if (projectId === null || projectId === undefined) {
-                throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling deleteMap.');
-            }
+            assertParamExists('deleteMap', 'projectId', projectId)
             // verify required parameter 'mapId' is not null or undefined
-            if (mapId === null || mapId === undefined) {
-                throw new RequiredError('mapId','Required parameter mapId was null or undefined when calling deleteMap.');
-            }
+            assertParamExists('deleteMap', 'mapId', mapId)
             const localVarPath = `/projects/{projectId}/maps/{mapId}`
                 .replace(`{${"projectId"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"mapId"}}`, encodeURIComponent(String(mapId)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
+
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             // authentication bearerAuth required
             // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken()
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
-                url: globalImportUrl.format(localVarUrlObj),
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Deletes a project
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteProject: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteProject', 'id', id)
+            const localVarPath = `/projects/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
             };
         },
@@ -369,46 +784,109 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMap(projectId: string, mapId: string, options: any = {}): RequestArgs {
+        getMap: async (projectId: string, mapId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
-            if (projectId === null || projectId === undefined) {
-                throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling getMap.');
-            }
+            assertParamExists('getMap', 'projectId', projectId)
             // verify required parameter 'mapId' is not null or undefined
-            if (mapId === null || mapId === undefined) {
-                throw new RequiredError('mapId','Required parameter mapId was null or undefined when calling getMap.');
-            }
+            assertParamExists('getMap', 'mapId', mapId)
             const localVarPath = `/projects/{projectId}/maps/{mapId}`
                 .replace(`{${"projectId"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"mapId"}}`, encodeURIComponent(String(mapId)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
+
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             // authentication bearerAuth required
             // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken()
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
-                url: globalImportUrl.format(localVarUrlObj),
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Gets project
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProject: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getProject', 'id', id)
+            const localVarPath = `/projects/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Gets user projects
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProjects: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/projects`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
             };
         },
@@ -421,50 +899,82 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateMap(projectId: string, mapId: string, updateMapRequest?: UpdateMapRequest, options: any = {}): RequestArgs {
+        updateMap: async (projectId: string, mapId: string, updateMapRequest?: UpdateMapRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
-            if (projectId === null || projectId === undefined) {
-                throw new RequiredError('projectId','Required parameter projectId was null or undefined when calling updateMap.');
-            }
+            assertParamExists('updateMap', 'projectId', projectId)
             // verify required parameter 'mapId' is not null or undefined
-            if (mapId === null || mapId === undefined) {
-                throw new RequiredError('mapId','Required parameter mapId was null or undefined when calling updateMap.');
-            }
+            assertParamExists('updateMap', 'mapId', mapId)
             const localVarPath = `/projects/{projectId}/maps/{mapId}`
                 .replace(`{${"projectId"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"mapId"}}`, encodeURIComponent(String(mapId)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
+
             const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             // authentication bearerAuth required
             // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken()
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof updateMapRequest !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(updateMapRequest !== undefined ? updateMapRequest : {}) : (updateMapRequest || "");
+            localVarRequestOptions.data = serializeDataIfNeeded(updateMapRequest, localVarRequestOptions, configuration)
 
             return {
-                url: globalImportUrl.format(localVarUrlObj),
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Updates a project
+         * @param {string} id 
+         * @param {UpdateProjectRequest} [updateProjectRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateProject: async (id: string, updateProjectRequest?: UpdateProjectRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateProject', 'id', id)
+            const localVarPath = `/projects/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateProjectRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
             };
         },
@@ -476,6 +986,7 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
  * @export
  */
 export const ProjectsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ProjectsApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -485,12 +996,20 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createMap(projectId: string, createMapRequest?: CreateMapRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoadMap> {
-            const localVarAxiosArgs = ProjectsApiAxiosParamCreator(configuration).createMap(projectId, createMapRequest, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
+        async createMap(projectId: string, createMapRequest?: CreateMapRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoadMap>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createMap(projectId, createMapRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Creates a new project
+         * @param {CreateProjectRequest} [createProjectRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createProject(createProjectRequest?: CreateProjectRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createProject(createProjectRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
@@ -500,12 +1019,20 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteMap(projectId: string, mapId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-            const localVarAxiosArgs = ProjectsApiAxiosParamCreator(configuration).deleteMap(projectId, mapId, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
+        async deleteMap(projectId: string, mapId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteMap(projectId, mapId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Deletes a project
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteProject(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProject(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
@@ -515,12 +1042,30 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMap(projectId: string, mapId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoadMap> {
-            const localVarAxiosArgs = ProjectsApiAxiosParamCreator(configuration).getMap(projectId, mapId, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
+        async getMap(projectId: string, mapId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoadMap>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMap(projectId, mapId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Gets project
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getProject(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Project>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProject(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Gets user projects
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getProjects(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProjectDescription>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjects(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
@@ -531,12 +1076,21 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateMap(projectId: string, mapId: string, updateMapRequest?: UpdateMapRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void> {
-            const localVarAxiosArgs = ProjectsApiAxiosParamCreator(configuration).updateMap(projectId, mapId, updateMapRequest, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
+        async updateMap(projectId: string, mapId: string, updateMapRequest?: UpdateMapRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateMap(projectId, mapId, updateMapRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Updates a project
+         * @param {string} id 
+         * @param {UpdateProjectRequest} [updateProjectRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateProject(id: string, updateProjectRequest?: UpdateProjectRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateProject(id, updateProjectRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
@@ -546,6 +1100,7 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
  * @export
  */
 export const ProjectsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ProjectsApiFp(configuration)
     return {
         /**
          * 
@@ -556,7 +1111,17 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         createMap(projectId: string, createMapRequest?: CreateMapRequest, options?: any): AxiosPromise<RoadMap> {
-            return ProjectsApiFp(configuration).createMap(projectId, createMapRequest, options)(axios, basePath);
+            return localVarFp.createMap(projectId, createMapRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Creates a new project
+         * @param {CreateProjectRequest} [createProjectRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createProject(createProjectRequest?: CreateProjectRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.createProject(createProjectRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -567,7 +1132,17 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         deleteMap(projectId: string, mapId: string, options?: any): AxiosPromise<void> {
-            return ProjectsApiFp(configuration).deleteMap(projectId, mapId, options)(axios, basePath);
+            return localVarFp.deleteMap(projectId, mapId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Deletes a project
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteProject(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteProject(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -578,7 +1153,26 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         getMap(projectId: string, mapId: string, options?: any): AxiosPromise<RoadMap> {
-            return ProjectsApiFp(configuration).getMap(projectId, mapId, options)(axios, basePath);
+            return localVarFp.getMap(projectId, mapId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Gets project
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProject(id: string, options?: any): AxiosPromise<Project> {
+            return localVarFp.getProject(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Gets user projects
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProjects(options?: any): AxiosPromise<Array<ProjectDescription>> {
+            return localVarFp.getProjects(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -590,7 +1184,18 @@ export const ProjectsApiFactory = function (configuration?: Configuration, baseP
          * @throws {RequiredError}
          */
         updateMap(projectId: string, mapId: string, updateMapRequest?: UpdateMapRequest, options?: any): AxiosPromise<void> {
-            return ProjectsApiFp(configuration).updateMap(projectId, mapId, updateMapRequest, options)(axios, basePath);
+            return localVarFp.updateMap(projectId, mapId, updateMapRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Updates a project
+         * @param {string} id 
+         * @param {UpdateProjectRequest} [updateProjectRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateProject(id: string, updateProjectRequest?: UpdateProjectRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.updateProject(id, updateProjectRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -612,7 +1217,19 @@ export class ProjectsApi extends BaseAPI {
      * @memberof ProjectsApi
      */
     public createMap(projectId: string, createMapRequest?: CreateMapRequest, options?: any) {
-        return ProjectsApiFp(this.configuration).createMap(projectId, createMapRequest, options)(this.axios, this.basePath);
+        return ProjectsApiFp(this.configuration).createMap(projectId, createMapRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Creates a new project
+     * @param {CreateProjectRequest} [createProjectRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public createProject(createProjectRequest?: CreateProjectRequest, options?: any) {
+        return ProjectsApiFp(this.configuration).createProject(createProjectRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -625,7 +1242,19 @@ export class ProjectsApi extends BaseAPI {
      * @memberof ProjectsApi
      */
     public deleteMap(projectId: string, mapId: string, options?: any) {
-        return ProjectsApiFp(this.configuration).deleteMap(projectId, mapId, options)(this.axios, this.basePath);
+        return ProjectsApiFp(this.configuration).deleteMap(projectId, mapId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Deletes a project
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public deleteProject(id: string, options?: any) {
+        return ProjectsApiFp(this.configuration).deleteProject(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -638,7 +1267,30 @@ export class ProjectsApi extends BaseAPI {
      * @memberof ProjectsApi
      */
     public getMap(projectId: string, mapId: string, options?: any) {
-        return ProjectsApiFp(this.configuration).getMap(projectId, mapId, options)(this.axios, this.basePath);
+        return ProjectsApiFp(this.configuration).getMap(projectId, mapId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Gets project
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public getProject(id: string, options?: any) {
+        return ProjectsApiFp(this.configuration).getProject(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Gets user projects
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public getProjects(options?: any) {
+        return ProjectsApiFp(this.configuration).getProjects(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -652,9 +1304,21 @@ export class ProjectsApi extends BaseAPI {
      * @memberof ProjectsApi
      */
     public updateMap(projectId: string, mapId: string, updateMapRequest?: UpdateMapRequest, options?: any) {
-        return ProjectsApiFp(this.configuration).updateMap(projectId, mapId, updateMapRequest, options)(this.axios, this.basePath);
+        return ProjectsApiFp(this.configuration).updateMap(projectId, mapId, updateMapRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
+    /**
+     * 
+     * @summary Updates a project
+     * @param {string} id 
+     * @param {UpdateProjectRequest} [updateProjectRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public updateProject(id: string, updateProjectRequest?: UpdateProjectRequest, options?: any) {
+        return ProjectsApiFp(this.configuration).updateProject(id, updateProjectRequest, options).then((request) => request(this.axios, this.basePath));
+    }
 }
 
 

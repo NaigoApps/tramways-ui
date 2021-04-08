@@ -1,20 +1,18 @@
 import React from "react";
 import IntegerPropertyInput from "./IntegerPropertyInput";
-import {
-    ChoiceProperty,
-    DecimalProperty,
-    DistributionProperty, DistributionType, ExponentialDistribution,
-    IntegerProperty,
-    Property,
-    StringProperty, UniformDistribution
-} from "../../../../../../api/generated";
 import StringPropertyInput from "./StringPropertyInput";
 import DecimalPropertyInput from "./DecimalPropertyInput";
 import ChoicePropertyInput from "./ChoicePropertyInput";
 import {PropertyTypes} from "./PropertyTypes";
 import DistributionPropertyInput from "./DistributionPropertyInput";
-import {csCZ} from "@material-ui/core/locale";
 import {Typography} from "@material-ui/core";
+import {
+  ChoiceProperty,
+  DecimalProperty, DistributionProperty, DistributionType, ExponentialDistribution,
+  IntegerProperty,
+  Property,
+  StringProperty, UniformDistribution
+} from "../../../../api/generated/projects";
 
 export interface PropertyInputProps {
     property: Property;
@@ -48,17 +46,17 @@ export function renderProperty(prop: Property) {
         case PropertyTypes.STRING:
             return (prop as StringProperty).value;
         case PropertyTypes.CHOICE:
-            return (prop as ChoiceProperty).choices.map(choice => choice.label).join(", ");
+            return (prop as ChoiceProperty).choices?.map(choice => choice.label).join(", ");
         case PropertyTypes.DISTRIBUTION:
             return renderDistribution(prop as DistributionProperty);
     }
 }
 
 function renderDistribution(prop: DistributionProperty) {
-    switch (prop.value.distributionType) {
-        case DistributionType.UNIFORM:
+    switch (prop?.value?.distributionType) {
+        case DistributionType.Uniform:
             return "[" + (prop.value as UniformDistribution).left + "," + (prop.value as UniformDistribution).right + "]";
-        case DistributionType.EXPONENTIAL:
+        case DistributionType.Exponential:
             return (prop.value as ExponentialDistribution).lambda
     }
 }

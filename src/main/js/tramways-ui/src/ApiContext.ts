@@ -1,16 +1,16 @@
 import React from "react";
-import {AnalysisApi, ConfigurationsApi, DefaultApi, ProjectsApi, UsersApi} from "../../api/generated";
+import {UsersApi} from './api/generated/users';
+import {ProjectsApi} from "./api/generated/projects";
 
-type ApiContext = {
-    defaultApi: DefaultApi;
+type ApiContextType = {
     usersApi: UsersApi;
     projectsApi: ProjectsApi;
-    configurationsApi: ConfigurationsApi;
-    analysisApi: AnalysisApi;
+    // configurationsApi: ConfigurationsApi;
+    // analysisApi: AnalysisApi;
 
-    updateToken: (token: string) => void
+    updateToken: (token: string | undefined) => void
 }
 
-const ApiContext = React.createContext({} as ApiContext);
+const ApiContext = React.createContext({} as ApiContextType);
 
 export default ApiContext;

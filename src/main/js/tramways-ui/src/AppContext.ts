@@ -1,6 +1,6 @@
 import React from "react";
 
-type AppContext = {
+type AppContextType = {
     error: string;
     notifyError: (err: string) => void;
     clearError: () => void;
@@ -14,6 +14,6 @@ type AppContext = {
     setAppBarTitle: (title: string) => void;
 }
 
-const AppContext = React.createContext({} as AppContext);
+const AppContext = React.createContext({} as AppContextType);
 
 export default AppContext;
