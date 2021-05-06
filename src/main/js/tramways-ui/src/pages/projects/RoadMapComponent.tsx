@@ -13,6 +13,8 @@ import RoadMapMenu from "./roadmap/RoadMapMenu";
 import {roadMapLanes, roadMapPoints} from "./roadmap/roadmap-utils";
 import RelevantPointEditorDialog from "./roadmap/RelevantPointEditorDialog";
 import LaneEditorDialog from "./roadmap/LaneEditorDialog";
+import AvailableAnalysisDialog from "./roadmap/analysis/AvailableAnalysisDialog";
+import {AnalysisType} from "../../api/generated/analysis";
 
 interface RoadMapComponentProps extends RouteComponentProps {
   projectId: string;
@@ -91,7 +93,7 @@ export default function RoadMapComponent(
   const [container, setContainer] = useState<HTMLElement | null>(null);
   const [showAnalysisDialog, setShowAnalysisDialog] = useState(false);
 
-  // const [chosenAnalysis, setChosenAnalysis] = useState<AnalysisType>(null);
+  const [chosenAnalysis, setChosenAnalysis] = useState<AnalysisType | null>(null);
 
   const [eventX, setEventX] = useState<number>(0);
   const [eventY, setEventY] = useState<number>(0);
@@ -271,15 +273,15 @@ export default function RoadMapComponent(
                   visible={showMenu}
               />
           )}
-          {/*{showAnalysisDialog && (*/}
-          {/*    <AvailableAnalysisDialog*/}
-          {/*        projectId={projectId}*/}
-          {/*        mapId={roadMap?.uuid}*/}
-          {/*        onClose={() => setShowAnalysisDialog(false)}*/}
-          {/*        onChooseAnalysis={setChosenAnalysis}*/}
-          {/*        visible={showAnalysisDialog}*/}
-          {/*    />*/}
-          {/*)}*/}
+          {showAnalysisDialog && (
+              <AvailableAnalysisDialog
+                  projectId={projectId}
+                  mapId={roadMap?.uuid}
+                  onClose={() => setShowAnalysisDialog(false)}
+                  onChooseAnalysis={setChosenAnalysis}
+                  visible={showAnalysisDialog}
+              />
+          )}
           {/*{chosenAnalysis && (*/}
           {/*    <AnalysisDialog*/}
           {/*        visible={!!chosenAnalysis}*/}

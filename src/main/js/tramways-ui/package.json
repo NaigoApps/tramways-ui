@@ -40,7 +40,7 @@
     "eject": "react-scripts eject",
     "generate-users-api": "openapi-generator-cli generate -i \"https://raw.githubusercontent.com/NaigoApps/tramways-users-service/master/users-service-rest/src/main/resources/api/users-api.yaml\"  -g typescript-axios -o ./src/api/generated/users",
     "generate-projects-api": "openapi-generator-cli generate -i \"https://raw.githubusercontent.com/NaigoApps/tramways-projects-service/master/projects-service-api/src/main/resources/api/projects-api.yaml\"  -g typescript-axios -o ./src/api/generated/projects",
-    "generate-analysis-api": "./node_modules/.bin/openapi-generator generate -i ../../resources/api/analysis-api.yaml -g typescript-axios -o src/api/generated/analysis"
+    "generate-analysis-api": "openapi-generator-cli generate -i \"https://raw.githubusercontent.com/NaigoApps/tramways-analysis-service/master/analysis-service-rest/src/main/resources/api/analysis-api.yaml\"  -g typescript-axios -o ./src/api/generated/analysis"
   },
   "eslintConfig": {
     "extends": [

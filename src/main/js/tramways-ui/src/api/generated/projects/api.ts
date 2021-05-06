@@ -188,10 +188,10 @@ export interface DecimalPropertyAllOf {
 export interface Distribution {
     /**
      * 
-     * @type {DistributionType}
+     * @type {string}
      * @memberof Distribution
      */
-    distributionType: DistributionType;
+    distributionType: string;
 }
 /**
  * 
@@ -219,16 +219,6 @@ export interface DistributionPropertyAllOf {
      */
     value?: Distribution;
 }
-/**
- * 
- * @export
- * @enum {string}
- */
-export enum DistributionType {
-    Uniform = 'UNIFORM',
-    Exponential = 'EXPONENTIAL'
-}
-
 /**
  * 
  * @export

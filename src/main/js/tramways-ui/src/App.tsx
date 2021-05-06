@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import SessionContext from "./SessionContext";
 import registerInterceptors from "./utils/errors-interceptor";
 import {ProjectsApi} from "./api/generated/projects";
+import {AnalysisApi} from "./api/generated/analysis";
 
 export default function App() {
 
@@ -28,12 +29,13 @@ export default function App() {
   registerInterceptors(notifyError, notifyMessage);
 
   const config = {
-    accessToken: token
+    accessToken: token,
+    basePath: 'http://192.168.1.32:8762/tramways/rest'
   };
   const [usersApi, setUsersApi] = useState(new UsersApi(new Configuration(config)));
   const [projectsApi, setProjectsApi] = useState(new ProjectsApi(new Configuration(config)));
   // const [configurationsApi, setConfigurationApi] = useState(new ConfigurationsApi(new Configuration(config)));
-  // const [analysisApi, setAnalysisApi] = useState(new AnalysisApi(new Configuration(config)));
+  const [analysisApi, setAnalysisApi] = useState(new AnalysisApi(new Configuration(config)));
 
   const [loaded, setLoaded] = useState(false);
 
@@ -49,12 +51,13 @@ export default function App() {
     Cookies.set("authorization", newToken);
 
     const newConfig = {
-      accessToken: newToken
+      accessToken: newToken,
+      basePath: 'http://192.168.1.32:8762/tramways/rest'
     };
     setUsersApi(new UsersApi(new Configuration(newConfig)));
     setProjectsApi(new ProjectsApi(new Configuration(newConfig)));
     // setConfigurationApi(new ConfigurationsApi(new Configuration(newConfig)));
-    // setAnalysisApi(new AnalysisApi(new Configuration(newConfig)));
+    setAnalysisApi(new AnalysisApi(new Configuration(newConfig)));
   }, []);
 
   useEffect(() => {
@@ -82,7 +85,7 @@ export default function App() {
       usersApi,
       projectsApi,
       // configurationsApi,
-      // analysisApi,
+      analysisApi,
       updateToken,
     }}>
       <SessionContext.Provider value={{
