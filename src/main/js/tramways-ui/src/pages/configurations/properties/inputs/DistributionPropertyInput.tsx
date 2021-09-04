@@ -1,11 +1,8 @@
 import React from "react";
 import UniformDistributionInput from "./distributions/UniformDistributionInput";
 import ExponentialDistributionInput from "./distributions/ExponentialDistributionInput";
-import {
-  Distribution,
-  DistributionProperty,
-  DistributionType
-} from "../../../../api/generated/projects";
+import {Distribution, DistributionProperty} from "../../../../api/generated/projects";
+import {DistributionType} from "../../../../api/generated/analysis";
 
 export interface DistributionPropertyInputProps {
   property: DistributionProperty;

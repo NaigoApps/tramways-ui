@@ -1,8 +1,8 @@
 import {
-  DistributionType,
   ExponentialDistribution,
   UniformDistribution
 } from "../../../../../api/generated/projects";
+import {DistributionType} from "../../../../../api/generated/analysis";
 
 export function newUniformDistribution(): UniformDistribution {
     return {

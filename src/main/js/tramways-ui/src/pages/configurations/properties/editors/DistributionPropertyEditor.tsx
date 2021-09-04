@@ -1,15 +1,21 @@
 import React from "react";
 import SelectEditor from "../../../../inputs/SelectEditor";
 import DistributionPropertyInput from "../inputs/DistributionPropertyInput";
-import {DistributionProperty, DistributionType} from "../../../../api/generated/projects";
+import {DistributionProperty} from "../../../../api/generated/projects";
 import {
   newExponentialDistribution,
   newUniformDistribution
 } from "../inputs/distributions/distribution-utils";
+import {DistributionType} from "../../../../api/generated/analysis";
 
 export interface DistributionPropertyEditorProps {
   property: DistributionProperty;
   onChange: (element: DistributionProperty) => void;
+}
+
+function distributionType(distributionType: string | undefined): DistributionType | null {
+  let match = Object.values(DistributionType).filter(value => value === distributionType);
+  return match.length > 0 ? match[0] : null;
 }
 
 export default function DistributionPropertyEditor(
@@ -38,7 +44,7 @@ export default function DistributionPropertyEditor(
   return <div>
     <SelectEditor<DistributionType | null>
         options={Object.values(DistributionType)}
-        value={property?.value?.distributionType || null}
+        value={distributionType(property?.value?.distributionType)}
         label={"Type"}
         onSelectOption={chooseDistributionType}/>
     {property?.value && <DistributionPropertyInput property={property} onChange={onChange}/>}
