@@ -30,7 +30,7 @@ export default function App() {
 
   const config = {
     accessToken: token,
-    basePath: 'http://192.168.1.32:8762/tramways/rest'
+    basePath: 'http://localhost:8762/tramways/rest'
   };
   const [usersApi, setUsersApi] = useState(new UsersApi(new Configuration(config)));
   const [projectsApi, setProjectsApi] = useState(new ProjectsApi(new Configuration(config)));
@@ -52,7 +52,7 @@ export default function App() {
 
     const newConfig = {
       accessToken: newToken,
-      basePath: 'http://192.168.1.32:8762/tramways/rest'
+      basePath: 'http://localhost:8762/tramways/rest'
     };
     setUsersApi(new UsersApi(new Configuration(newConfig)));
     setProjectsApi(new ProjectsApi(new Configuration(newConfig)));
