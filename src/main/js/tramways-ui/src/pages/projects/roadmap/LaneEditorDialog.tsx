@@ -4,7 +4,7 @@ import {IconButton, Typography} from "@material-ui/core";
 import {Delete, Settings} from "@material-ui/icons";
 import SelectEditor from "../../../inputs/SelectEditor";
 import ConfigurableEditorDialog from "./ConfigurableEditorDialog";
-import {Lane, RoadMap} from "../../../api/generated/projects";
+import {Lane, RoadMap} from "@tramways/projects-service-api";
 import {roadMapPoints} from "./roadmap-utils";
 
 export interface LaneEditorDialogProps {

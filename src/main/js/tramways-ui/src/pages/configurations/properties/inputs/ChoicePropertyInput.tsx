@@ -1,6 +1,6 @@
 import React from "react";
 import SelectEditor from "../../../../inputs/SelectEditor";
-import {ChoiceElement, ChoiceProperty} from "../../../../api/generated/projects";
+import {ChoiceElement, ChoiceProperty} from "@tramways/projects-service-api";
 
 export interface ChoicePropertyInputProps {
   property: ChoiceProperty;

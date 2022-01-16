@@ -1,26 +1,25 @@
 import React from "react";
-// import {AnalysisResult, AnalysisResultType} from "../../../../../api/generated";
-// import StringAnalysisResultComponent from "./StringAnalysisResultComponent";
-// import XYAnalysisResultComponent from "./XYAnalysisResultComponent";
-//
-// export interface AnalysisResultComponentProps {
-//     name: string;
-//     result: AnalysisResult;
-// }
-//
-// export default function AnalysisResultComponent({name, result}: AnalysisResultComponentProps) {
-//     const componentMap = new Map<string, any>();
-//     componentMap.set(AnalysisResultType.STRING, StringAnalysisResultComponent);
-//     componentMap.set(AnalysisResultType.XY, XYAnalysisResultComponent);
-//
-//     if (!result) {
-//         return null;
-//     }
-//
-//     let Component = componentMap.get(result.resultType);
-//     if (!Component) {
-//         Component = () => <p>Unsupported</p>;
-//     }
-//
-//     return <Component name={name} result={result}/>;
-// }
+import StringAnalysisResultComponent from "./StringAnalysisResultComponent";
+import XYAnalysisResultComponent from "./XYAnalysisResultComponent";
+import {Analysis} from "@tramways/analysis-service-api";
+
+export interface AnalysisResultComponentProps {
+    analysis: Analysis | null
+}
+
+export default function AnalysisResultComponent({analysis}: AnalysisResultComponentProps) {
+    const componentMap = new Map<string, any>();
+    componentMap.set("StringAnalysisResult", StringAnalysisResultComponent);
+    componentMap.set("XYAnalysisResult", XYAnalysisResultComponent);
+
+    if (!analysis || !analysis.result?.resultType) {
+        return null;
+    }
+
+    let Component = componentMap.get(analysis.result.resultType);
+    if (!Component) {
+        Component = () => <p>Unsupported</p>;
+    }
+
+    return <Component name={analysis.name} result={analysis.result}/>;
+}

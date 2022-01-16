@@ -2,7 +2,7 @@ import {TextField} from "@material-ui/core";
 import React, {useContext, useState} from "react";
 import ApiContext from "../../ApiContext";
 import {OkCancelDialog} from "../../widgets/OkCancelDialog";
-import {ProjectDescription} from "../../api/generated/projects";
+import {ProjectDescription} from "@tramways/projects-service-api";
 
 export type ProjectEditorProps = {
   project: ProjectDescription;

@@ -8,7 +8,7 @@ import {
   DecimalProperty, DistributionProperty,
   IntegerProperty,
   StringProperty
-} from "../../../api/generated/projects";
+} from "@tramways/projects-service-api";
 
 export function newStringProperty(): StringProperty {
   return {

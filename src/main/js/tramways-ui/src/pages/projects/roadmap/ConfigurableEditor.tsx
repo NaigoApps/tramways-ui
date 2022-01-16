@@ -6,7 +6,7 @@ import ConfigurationSelectionDialog
 import Button from "@material-ui/core/Button";
 import PropertyInput from "../../configurations/properties/inputs/PropertyInput";
 import PropertyEditorDialog from "../../configurations/properties/editors/PropertyEditorDialog";
-import {Configurable, ItemConfiguration, Property} from "../../../api/generated/projects";
+import {Configurable, ItemConfiguration, Property} from "@tramways/projects-service-api";
 import {configurableProps} from "./roadmap-utils";
 
 export interface ConfigurableEditorProps<C extends Configurable> {
@@ -20,7 +20,7 @@ export default function ConfigurableEditor<C extends Configurable>({
 
   // const {configurationsApi} = useContext(ApiContext);
 
-  const [presets, setPresets] = useState<Array<ItemConfiguration>>([]);
+  const [presets, ] = useState<Array<ItemConfiguration>>([]);
 
   const [showConfigurations, setShowConfigurations] = useState(false);
   const [creatingProp, setCreatingProp] = useState(false);

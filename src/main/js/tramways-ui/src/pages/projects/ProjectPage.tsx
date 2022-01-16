@@ -7,7 +7,7 @@ import ApiContext from "../../ApiContext";
 import AddIcon from "@material-ui/icons/Add";
 import useStyles from "../../utils/useStyles";
 import RoadMapEditor from "./roadmap/RoadMapEditor";
-import {Project, RoadMap} from "../../api/generated/projects";
+import {Project, RoadMap} from "@tramways/projects-service-api";
 
 interface ProjectPageProps extends RouteComponentProps {
   projectId?: string;

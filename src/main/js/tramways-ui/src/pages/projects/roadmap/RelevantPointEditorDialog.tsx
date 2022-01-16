@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import {OkCancelDialog} from "../../../widgets/OkCancelDialog";
-import ConfigurableEditor from "./ConfigurableEditor";
-import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, IconButton, Typography} from "@material-ui/core";
-import {Delete, ExpandMore, Settings} from "@material-ui/icons";
+import {IconButton, Typography} from "@material-ui/core";
+import {Delete, Settings} from "@material-ui/icons";
 import RelevantPointLinksEditor from "./RelevantPointLinksEditor";
 import ConfigurableEditorDialog from "./ConfigurableEditorDialog";
-import {RelevantPoint, RoadMap} from "../../../api/generated/projects";
+import {RelevantPoint, RoadMap} from "@tramways/projects-service-api";
 
 export interface RelevantPointEditorDialogProps {
     roadMap: RoadMap;

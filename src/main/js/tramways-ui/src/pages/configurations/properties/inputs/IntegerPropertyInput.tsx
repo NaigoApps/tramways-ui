@@ -1,7 +1,7 @@
 import {TextField} from "@material-ui/core";
 import React from "react";
 import useStyles from "../../../../utils/useStyles";
-import {IntegerProperty} from "../../../../api/generated/projects";
+import {IntegerProperty} from "@tramways/projects-service-api";
 
 export interface IntegerPropertyInputProps {
   property: IntegerProperty;

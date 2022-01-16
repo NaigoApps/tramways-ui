@@ -1,7 +1,7 @@
 import {TextField} from "@material-ui/core";
 import React, {useState} from "react";
 import {OkCancelDialog} from "../../../widgets/OkCancelDialog";
-import {RelevantPoint} from "../../../api/generated/projects";
+import {RelevantPoint} from "@tramways/projects-service-api";
 
 export type NewNodeDialogProps = {
   visible: boolean;

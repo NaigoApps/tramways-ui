@@ -4,7 +4,7 @@ import useStyles from "../../utils/useStyles";
 import {RouteComponentProps} from "@reach/router";
 import ApiContext from "../../ApiContext";
 import {OkCancelDialog} from "../../widgets/OkCancelDialog";
-import {Project, RoadMapDescription} from "../../api/generated/projects";
+import {Project, RoadMapDescription} from "@tramways/projects-service-api";
 
 interface RoadMapItemProps extends RouteComponentProps {
   project: Project;

@@ -5,7 +5,7 @@ import SelectEditor from "../../../inputs/SelectEditor";
 import TextField from "@material-ui/core/TextField";
 import useStyles from "../../../utils/useStyles";
 import CrossingLinkEditor from "./CrossingLinkEditor";
-import {CrossingLink, RelevantPoint, RoadMap} from "../../../api/generated/projects";
+import {CrossingLink, RelevantPoint, RoadMap} from "@tramways/projects-service-api";
 
 export interface RelevantPointLinksEditorProps {
   roadMap: RoadMap,

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {OkCancelDialog} from "../../../widgets/OkCancelDialog";
 import ConfigurableEditor from "./ConfigurableEditor";
-import {Configurable} from "../../../api/generated/projects";
+import {Configurable} from "@tramways/projects-service-api";
 
 export interface ConfigurableEditorDialogProps<C extends Configurable> {
   visible: boolean;

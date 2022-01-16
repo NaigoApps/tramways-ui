@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {OkCancelDialog} from "../../../../widgets/OkCancelDialog";
 import {newStringProperty} from "../properties-utils";
 import PropertyEditor from "./PropertyEditor";
-import {Property} from "../../../../api/generated/projects";
+import {Property} from "@tramways/projects-service-api";
 
 export type PropertyEditorDialogProps = {
     suggestions?: Array<Property>;

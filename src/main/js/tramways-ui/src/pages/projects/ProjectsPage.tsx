@@ -6,7 +6,7 @@ import Page from "../Page";
 import {RouteComponentProps} from "@reach/router";
 import ApiContext from "../../ApiContext";
 import ProjectEditor from "./ProjectEditor";
-import {Project, ProjectDescription} from "../../api/generated/projects";
+import {Project, ProjectDescription} from "@tramways/projects-service-api";
 
 export default function ProjectsPage({navigate}: RouteComponentProps) {
   const classes = useStyles();

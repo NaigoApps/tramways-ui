@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {OkCancelDialog} from "../../../widgets/OkCancelDialog";
 import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
-import {Property} from "../../../api/generated/projects";
+import {Property} from "@tramways/projects-service-api";
 
 export interface PropertySelectionDialogProps {
   properties: Property[];

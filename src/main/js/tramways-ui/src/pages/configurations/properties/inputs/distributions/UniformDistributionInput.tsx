@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import useStyles from "../../../../../utils/useStyles";
-import {UniformDistribution} from "../../../../../api/generated/projects";
+import {UniformDistribution} from "@tramways/projects-service-api";
 
 export interface UniformDistributionPropertyInputProps {
   distribution: UniformDistribution;

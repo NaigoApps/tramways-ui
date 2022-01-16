@@ -1,12 +1,8 @@
-import {
-  ExponentialDistribution,
-  UniformDistribution
-} from "../../../../../api/generated/projects";
-import {DistributionType} from "../../../../../api/generated/analysis";
+import {ExponentialDistribution, UniformDistribution} from "@tramways/projects-service-api";
 
 export function newUniformDistribution(): UniformDistribution {
     return {
-        distributionType: DistributionType.Uniform,
+        distributionType: "UniformDistributionType",
         left: 0,
         right: 1
     }
@@ -14,7 +10,7 @@ export function newUniformDistribution(): UniformDistribution {
 
 export function newExponentialDistribution(): ExponentialDistribution {
     return {
-        distributionType: DistributionType.Exponential,
+        distributionType: "UniformDistributionType",
         lambda: 1
     }
 }

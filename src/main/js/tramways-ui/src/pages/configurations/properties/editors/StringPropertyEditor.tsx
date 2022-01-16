@@ -1,6 +1,6 @@
 import React from "react";
 import StringPropertyInput from "../inputs/StringPropertyInput";
-import {StringProperty} from "../../../../api/generated/projects";
+import {StringProperty} from "@tramways/projects-service-api";
 
 export interface StringPropertyEditorProps {
   property: StringProperty;

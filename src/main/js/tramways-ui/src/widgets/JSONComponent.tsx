@@ -1,4 +1,4 @@
-import {Button, Dialog, DialogActions, DialogContent} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import JSONEditor, {JSONEditorOptions} from 'jsoneditor';
 import React, {FunctionComponent, useCallback, useEffect, useState} from "react";
 import Alert from "./Alert";
@@ -16,7 +16,7 @@ export const JSONComponent: FunctionComponent<JSONComponentProps> = ({
                                                                        onClose,
                                                                        visible
                                                                      }) => {
-  const [options, setOptions] = useState<JSONEditorOptions>({
+  const [options, ] = useState<JSONEditorOptions>({
     mode: "code",
   });
 

@@ -1,6 +1,6 @@
 import React from "react";
 import IntegerPropertyInput from "../inputs/IntegerPropertyInput";
-import {IntegerProperty} from "../../../../api/generated/projects";
+import {IntegerProperty} from "@tramways/projects-service-api";
 
 export interface IntegerPropertyEditorProps {
   property: IntegerProperty;

@@ -1,5 +1,4 @@
-import {createStyles, makeStyles, StyleRules, Theme} from "@material-ui/core/styles";
-import {BaseCSSProperties} from "@material-ui/core/styles/withStyles";
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 
 /*
  * Trick

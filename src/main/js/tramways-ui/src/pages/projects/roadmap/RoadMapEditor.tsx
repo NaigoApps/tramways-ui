@@ -2,7 +2,7 @@ import {TextField} from "@material-ui/core";
 import React, {useContext, useState} from "react";
 import ApiContext from "../../../ApiContext";
 import {OkCancelDialog} from "../../../widgets/OkCancelDialog";
-import {RoadMap} from "../../../api/generated/projects";
+import {RoadMap} from "@tramways/projects-service-api";
 
 export type RoadMapEditorProps = {
   projectId: string

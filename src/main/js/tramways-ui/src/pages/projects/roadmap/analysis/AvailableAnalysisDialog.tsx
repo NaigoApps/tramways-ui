@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import ApiContext from "../../../../ApiContext";
-import {AnalysisType} from "../../../../api/generated/analysis";
+import {AnalysisType} from "@tramways/analysis-service-api";
 
 export interface AvailableAnalysisDialogProps {
   visible: boolean;

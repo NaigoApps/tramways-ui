@@ -18,7 +18,7 @@ import DistributionPropertyEditor from "./DistributionPropertyEditor";
 import IntegerPropertyEditor from "./IntegerPropertyEditor";
 import DecimalPropertyEditor from "./DecimalPropertyEditor";
 import StringPropertyEditor from "./StringPropertyEditor";
-import {Property} from "../../../../api/generated/projects";
+import {Property} from "@tramways/projects-service-api";
 
 export interface PropertyEditorProps {
   property: Property;

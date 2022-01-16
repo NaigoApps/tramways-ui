@@ -1,52 +1,43 @@
 import React from "react";
 import SelectEditor from "../../../../inputs/SelectEditor";
 import DistributionPropertyInput from "../inputs/DistributionPropertyInput";
-import {DistributionProperty} from "../../../../api/generated/projects";
-import {
-  newExponentialDistribution,
-  newUniformDistribution
-} from "../inputs/distributions/distribution-utils";
-import {DistributionType} from "../../../../api/generated/analysis";
+import {newExponentialDistribution, newUniformDistribution} from "../inputs/distributions/distribution-utils";
+import {DistributionProperty} from "@tramways/projects-service-api";
 
 export interface DistributionPropertyEditorProps {
-  property: DistributionProperty;
-  onChange: (element: DistributionProperty) => void;
-}
-
-function distributionType(distributionType: string | undefined): DistributionType | null {
-  let match = Object.values(DistributionType).filter(value => value === distributionType);
-  return match.length > 0 ? match[0] : null;
+    property: DistributionProperty;
+    onChange: (element: DistributionProperty) => void;
 }
 
 export default function DistributionPropertyEditor(
     {
-      property, onChange
+        property, onChange
     }: DistributionPropertyEditorProps
 ) {
 
-  function chooseDistributionType(type: DistributionType | null) {
-    let distribution;
-    switch (type) {
-      case DistributionType.Exponential:
-        distribution = newExponentialDistribution();
-        break;
-      case DistributionType.Uniform:
-      default:
-        distribution = newUniformDistribution();
-        break;
+    function chooseDistributionType(type: string | null) {
+        let distribution;
+        switch (type) {
+            case "ExponentialDistribution":
+                distribution = newExponentialDistribution();
+                break;
+            case "UniformDistribution":
+            default:
+                distribution = newUniformDistribution();
+                break;
+        }
+        onChange({
+            ...property,
+            value: distribution
+        });
     }
-    onChange({
-      ...property,
-      value: distribution
-    });
-  }
 
-  return <div>
-    <SelectEditor<DistributionType | null>
-        options={Object.values(DistributionType)}
-        value={distributionType(property?.value?.distributionType)}
-        label={"Type"}
-        onSelectOption={chooseDistributionType}/>
-    {property?.value && <DistributionPropertyInput property={property} onChange={onChange}/>}
-  </div>
+    return <div>
+        <SelectEditor<string | null>
+            options={["UniformDistribution", "ExponentialDistribution"]}
+            value={property?.value?.distributionType || null}
+            label={"Type"}
+            onSelectOption={chooseDistributionType}/>
+        {property?.value && <DistributionPropertyInput property={property} onChange={onChange}/>}
+    </div>
 }

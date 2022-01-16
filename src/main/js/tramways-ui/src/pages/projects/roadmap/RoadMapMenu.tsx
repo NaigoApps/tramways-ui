@@ -14,7 +14,7 @@ import {Add} from "@material-ui/icons";
 import NewNodeDialog from "./NewNodeDialog";
 import NewLaneDialog from "./NewLaneDialog";
 import {createDecimal} from "../../configurations/properties/properties-utils";
-import {Lane, RelevantPoint, RoadMap} from "../../../api/generated/projects";
+import {Lane, RelevantPoint, RoadMap} from "@tramways/projects-service-api";
 
 export interface RoadMapMenuProps {
   roadMap: RoadMap;

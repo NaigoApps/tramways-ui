@@ -3,7 +3,7 @@ import {IconButton, Typography} from "@material-ui/core";
 import {Delete, Settings} from "@material-ui/icons";
 import SelectEditor from "../../../inputs/SelectEditor";
 import ConfigurableEditorDialog from "./ConfigurableEditorDialog";
-import {CrossingLink, RelevantPoint, RoadMap} from "../../../api/generated/projects";
+import {CrossingLink, RelevantPoint, RoadMap} from "@tramways/projects-service-api";
 
 export interface CrossingLinkEditorProps {
   roadMap: RoadMap,

@@ -1,5 +1,5 @@
 import React from "react";
-import {User} from "./api/generated/users";
+import {User} from "@tramways/users-service-api";
 
 type SessionContextType = {
     user: User | null,

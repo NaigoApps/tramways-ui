@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {OkCancelDialog} from "../../../widgets/OkCancelDialog";
 import SelectEditor from "../../../inputs/SelectEditor";
 import useStyles from "../../../utils/useStyles";
-import {Lane, RelevantPoint, RoadMap} from "../../../api/generated/projects";
+import {Lane, RelevantPoint, RoadMap} from "@tramways/projects-service-api";
 import {roadMapPoints} from "./roadmap-utils";
 
 export type NewLaneDialogProps = {

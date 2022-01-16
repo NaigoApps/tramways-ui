@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {OkCancelDialog} from "../../../widgets/OkCancelDialog";
 import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
-import {ItemConfiguration} from "../../../api/generated/projects";
+import {ItemConfiguration} from "@tramways/projects-service-api";
 
 export interface ConfigurationSelectionDialogProps {
   configurations: ItemConfiguration[];

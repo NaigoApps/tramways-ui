@@ -2,7 +2,7 @@ import React, {useCallback, useContext, useEffect, useState} from "react";
 import Page from "../Page";
 import {RouteComponentProps} from "@reach/router";
 import ApiContext from "../../ApiContext";
-import {RoadMap} from "../../api/generated/projects";
+import {RoadMap} from "@tramways/projects-service-api";
 import RoadMapComponent from "./RoadMapComponent";
 
 interface RoadMapPageProps extends RouteComponentProps {

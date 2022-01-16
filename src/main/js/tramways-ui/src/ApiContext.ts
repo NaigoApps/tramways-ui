@@ -1,7 +1,7 @@
 import React from "react";
-import {UsersApi} from './api/generated/users';
-import {ProjectsApi} from "./api/generated/projects";
-import {AnalysisApi} from "./api/generated/analysis";
+import {ProjectsApi} from "@tramways/projects-service-api";
+import {UsersApi} from "@tramways/users-service-api";
+import {AnalysisApi} from "@tramways/analysis-service-api";
 
 type ApiContextType = {
     usersApi: UsersApi;

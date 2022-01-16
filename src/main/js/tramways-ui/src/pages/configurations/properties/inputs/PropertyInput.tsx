@@ -7,12 +7,12 @@ import {PropertyTypes} from "./PropertyTypes";
 import DistributionPropertyInput from "./DistributionPropertyInput";
 import {Typography} from "@material-ui/core";
 import {
-  ChoiceProperty,
-  DecimalProperty, DistributionProperty, DistributionType, ExponentialDistribution,
-  IntegerProperty,
-  Property,
-  StringProperty, UniformDistribution
-} from "../../../../api/generated/projects";
+    ChoiceProperty,
+    DecimalProperty, DistributionProperty, ExponentialDistribution,
+    IntegerProperty,
+    Property,
+    StringProperty, UniformDistribution
+} from "@tramways/projects-service-api";
 
 export interface PropertyInputProps {
     property: Property;
@@ -54,9 +54,9 @@ export function renderProperty(prop: Property) {
 
 function renderDistribution(prop: DistributionProperty) {
     switch (prop?.value?.distributionType) {
-        case DistributionType.Uniform:
+        case "UniformDistribution":
             return "[" + (prop.value as UniformDistribution).left + "," + (prop.value as UniformDistribution).right + "]";
-        case DistributionType.Exponential:
+        case "ExponentialDistribution":
             return (prop.value as ExponentialDistribution).lambda
     }
 }

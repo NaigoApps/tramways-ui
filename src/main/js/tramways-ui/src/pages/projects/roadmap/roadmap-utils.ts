@@ -4,7 +4,7 @@ import {
   Property,
   RelevantPoint,
   RoadMap
-} from "../../../api/generated/projects";
+} from "@tramways/projects-service-api";
 
 export function roadMapPoints(roadMap: RoadMap): RelevantPoint[] {
   return roadMap?.points || [];

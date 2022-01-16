@@ -1,17 +1,9 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField
-} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from "@material-ui/core";
 import React, {useContext, useState} from "react";
 import ApiContext from "../../ApiContext";
 import MultiSelectEditor from "../../inputs/MultiSelectEditor";
-import AppContext from "../../AppContext";
 import useStyles from "../../utils/useStyles";
-import {User, UserRole} from "../../api/generated/users";
+import {User, UserRole} from "@tramways/users-service-api";
 
 type UserEditorProps = {
   user: User;
@@ -21,7 +13,6 @@ type UserEditorProps = {
 
 export default function UserEditor({user, onClose, onConfirm}: UserEditorProps) {
   const {usersApi} = useContext(ApiContext);
-  const {notifyError} = useContext(AppContext);
 
   const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState("");
