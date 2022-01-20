@@ -10,7 +10,7 @@ export interface AnalysisDialogProps {
     onClose: () => void;
     analysis: AnalysisType;
     projectId: string;
-    mapId: string;
+    mapId?: string;
 }
 
 export default function AnalysisDialog(
