@@ -4,7 +4,6 @@ import Page from "../../../Page";
 import {Grid} from "@material-ui/core";
 import {RouteComponentProps} from "@reach/router";
 import ApiContext from "../../../../ApiContext";
-import AnalysisResultDialog from "./AnalysisResultDialog";
 import {RoadMap} from "@tramways/projects-service-api";
 import {AnalysisDescription} from "@tramways/analysis-service-api";
 
@@ -30,17 +29,21 @@ export default function AnalysisListPage({navigate, projectId, mapId}: AnalysisL
                 setMap(response.data);
             })
         }
-    }, [projectId, mapId, projectsApi]);
+    }, [projectId, mapId, projectsApi, analysisApi]);
 
     function deleteAnalysis(a: AnalysisDescription) {
         if (projectId && mapId && a.uuid) {
-            analysisApi.deleteAnalysis(projectId, mapId, a.uuid).then(() => loadAnalysis());
+            analysisApi.deleteAnalysis(a.uuid).then(() => loadAnalysis());
         }
     }
 
     useEffect(() => loadAnalysis(), [loadAnalysis]);
 
-    const [selectedAnalysis, setSelectedAnalysis] = useState<AnalysisDescription | null>(null);
+    function setSelectedAnalysis(analysis: AnalysisDescription) {
+        if (navigate && analysis.uuid) {
+            navigate(analysis.uuid);
+        }
+    }
 
     return (
         <Page title={`Analysis of ${map?.name}`}>
@@ -55,14 +58,6 @@ export default function AnalysisListPage({navigate, projectId, mapId}: AnalysisL
                     </Grid>
                 ))}
             </Grid>
-            {selectedAnalysis && projectId && mapId && selectedAnalysis?.uuid && (
-                <AnalysisResultDialog
-                    projectId={projectId}
-                    mapId={mapId}
-                    analysisId={selectedAnalysis.uuid}
-                    onClose={() => setSelectedAnalysis(null)}
-                />
-            )}
         </Page>
     );
 }

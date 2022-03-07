@@ -30,6 +30,7 @@ import ProjectPage from "./pages/projects/ProjectPage";
 import RoadMapPage from "./pages/projects/RoadMapPage";
 import {User, UserRole} from "@tramways/users-service-api";
 import AnalysisListPage from "./pages/projects/roadmap/analysis/AnalysisListPage";
+import AnalysisPage from "./pages/projects/roadmap/analysis/AnalysisPage";
 
 const Root = () => {
     const {
@@ -109,6 +110,7 @@ const Root = () => {
                     <ProjectPage path="/projects/:projectId"/>
                     <RoadMapPage path="/projects/:projectId/:mapId"/>
                     <AnalysisListPage path="projects/:projectId/:mapId/analysis"/>
+                    <AnalysisPage path="projects/:projectId/:mapId/analysis/:analysisId"/>
 
                     {/*<ConfigurationsPage path="/configurations"/>*/}
                     {/*<NewConfigurationPage path="configurations/new" />*/}
